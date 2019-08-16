@@ -8,6 +8,7 @@ The program is run in the command line with the following usage:
 ```
 python builder.py -i <inputdirectory> -o <outputfile>
 ```
+![spritesheet-builder demonstration](./resources/spritesheet_builder.png)
 ## Spritesheet Padder
 The spritesheet padder takes an existing spritesheet (.png only) and adds padding around each sprite in the spritesheet. The number of pixels for padding is determined by the user when the program is run.
 
