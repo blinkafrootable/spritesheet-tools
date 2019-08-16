@@ -38,20 +38,28 @@ def main(argv):
             output_path = arg
     
     if os.path.isfile(input_path) == False:
-        print('The entered input file path is invalid: "' + input_path + '"')
+        print('[ERROR] The entered input file path is invalid: "' + input_path + '"')
         sys.exit(1)
 
-    input_image = Image.open(input_path)
+    if output_path.endswith('.png') == False:
+        print('[ERROR] The output file must end in .png.')
+        sys.exit(1)
+
+    try:
+        input_image = Image.open(input_path)
+    except:
+        print('[ERROR] There was an error accessing the image "' + input_path + '". Make sure that the file is not being used by another program and that its directory is not administrator only')
+        sys.exit(1)
     input_image_width, input_image_height = input_image.size
 
     input_width = ''
     while True:
         input_width = input('Enter the width (in pixels) of each sprite in the spritesheet (has to be a positive integer). Make sure to include the padding width if there is padding: ')
         if is_valid_number(input_width) == False:
-            print('The input width is not a positive integer...')
+            print('[ERROR] The input width is not a positive integer...')
             continue
         elif input_image_width % int(input_width) != 0:
-            print('The input image is not divisible by the input width...')
+            print('[ERROR] The input image\'s width is not divisible by the input width...')
             continue
         else:
             break
@@ -61,10 +69,10 @@ def main(argv):
     while True:
         input_height = input('Enter the height (in pixels) of each sprite in the spritesheet (has to be a positive integer). Make sure to include the padding height if there is padding: ')
         if is_valid_number(input_height) == False:
-            print('The input height is not a positive integer...')
+            print('[ERROR] The input height is not a positive integer...')
             continue
         elif input_image_height % int(input_height) != 0:
-            print('The input image is not divisible by the input height...')
+            print('[ERROR] The input image\'s height is not divisible by the input height...')
             continue
         else:
             break
@@ -81,7 +89,11 @@ def main(argv):
             current_sprite = current_sprite.transpose(PIL.Image.FLIP_LEFT_RIGHT)
             output_image.paste(current_sprite, pos)
 
-    output_image.save(output_path)
+    try:
+        output_image.save(output_path)
+    except:
+        print('[ERROR] An error occurred trying to save "' + output_path + '". Make sure that the directory that the file is in is not being used by another program and that it is not administrator only')
+        sys.exit(1)
     print('DONE')
 
 if __name__ == "__main__":
