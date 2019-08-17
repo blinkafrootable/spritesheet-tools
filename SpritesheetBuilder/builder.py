@@ -29,7 +29,7 @@ def main(argv):
             output_path = arg
     
     if os.path.isdir(input_path) == False:
-        print('[ERROR] The entered input directory path is invalid: "' + input_path + '"')
+        print('[ERROR] The entered input directory path does not exist: "' + input_path + '"')
         sys.exit(1)
 
     if output_path.endswith('.png') == False:

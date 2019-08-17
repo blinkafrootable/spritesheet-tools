@@ -37,7 +37,11 @@ def main(argv):
             output_path = arg
     
     if os.path.isfile(input_path) == False:
-        print('[ERROR] The entered input file path is invalid: "' + input_path + '"')
+        print('[ERROR] The entered input file path does not exist: "' + input_path + '"')
+        sys.exit(1)
+
+    if input_path.endswith('.png') == False:
+        print('[ERROR] The input file must end in .png')
         sys.exit(1)
 
     if output_path.endswith('.png') == False:
